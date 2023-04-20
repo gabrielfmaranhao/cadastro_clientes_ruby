@@ -27,6 +27,5 @@ class ApplicationController < ActionController::API
 
   def authorized
     render json: {error: "Token invalid or not exists"}, status: :unauthorized unless authorized_usuario
-
   end
 end

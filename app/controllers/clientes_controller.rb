@@ -1,6 +1,8 @@
 class ClientesController < ApplicationController
-  before_action :authorized
+  before_action :authorized, only: %i[ show update destroy create]
   before_action :set_cliente, only: %i[ show update destroy ]
+
+
 
   # GET /clientes
   def index
@@ -16,7 +18,7 @@ class ClientesController < ApplicationController
 
   # POST /clientes
   def create
-    @cliente = Cliente.new(cliente_params.merge(usuario: @usuario))
+    @cliente = Cliente.new(cliente_params.merge(usuario: @usuario, usuario_at_cadastro: @usuario.username))
     if @cliente.save
       render json: @cliente, status: :created, location: @cliente, each_serializer: ClienteSerializer
     else

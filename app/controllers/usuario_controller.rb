@@ -44,6 +44,6 @@ class UsuarioController < ApplicationController
       @usuario = Usuario.find(params[:id])
     end
     def usuario_params
-      params.require(:usuario).permit(:username, :email, :password)
+      params.require(:usuario).permit(:username, :email, :password, :cpf)
     end
 end
