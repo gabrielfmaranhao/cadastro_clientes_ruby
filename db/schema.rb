@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_151032) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_20_190317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_151032) do
     t.index ["usuario_id"], name: "index_clientes_on_usuario_id"
   end
 
+  create_table "telefones", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "number"
+    t.bigint "cliente_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_telefones_on_cliente_id"
+  end
+
   create_table "usuarios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -34,4 +42,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_151032) do
   end
 
   add_foreign_key "clientes", "usuarios"
+  add_foreign_key "telefones", "clientes"
 end
